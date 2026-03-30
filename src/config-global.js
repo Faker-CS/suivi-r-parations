@@ -5,18 +5,19 @@ import packageJson from '../package.json';
 // ----------------------------------------------------------------------
 
 export const CONFIG = {
-  appName: 'Minimal UI',
+  appName: 'SASGESTION',
   appVersion: packageJson.version,
   serverUrl: import.meta.env.VITE_SERVER_URL ?? '',
   assetsDir: import.meta.env.VITE_ASSETS_DIR ?? '',
+  apiUrl: 'https://cashphone28.emc1001.online/api/',
   /**
    * Auth
    * @method jwt | amplify | firebase | supabase | auth0
    */
   auth: {
     method: 'jwt',
-    skip: false,
-    redirectPath: paths.dashboard.root,
+    skip: true,
+    redirectPath: paths.suivi.root,
   },
   /**
    * Mapbox

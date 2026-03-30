@@ -4,7 +4,7 @@ import { CONFIG } from 'src/config-global';
 
 // ----------------------------------------------------------------------
 
-const axiosInstance = axios.create({ baseURL: CONFIG.serverUrl });
+const axiosInstance = axios.create({ baseURL: CONFIG.apiUrl });
 
 axiosInstance.interceptors.response.use(
   (response) => response,
@@ -34,6 +34,7 @@ export const endpoints = {
   chat: '/api/chat',
   kanban: '/api/kanban',
   calendar: '/api/calendar',
+  suivi: '/suivi',
   auth: {
     me: '/api/auth/me',
     signIn: '/api/auth/sign-in',

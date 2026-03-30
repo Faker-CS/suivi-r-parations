@@ -3,6 +3,7 @@
 const ROOTS = {
   AUTH: '/auth',
   DASHBOARD: '/dashboard',
+  SUIVI: '/suivi',
 };
 
 // ----------------------------------------------------------------------
@@ -39,6 +40,10 @@ export const paths = {
       updatePassword: `${ROOTS.AUTH}/supabase/update-password`,
       resetPassword: `${ROOTS.AUTH}/supabase/reset-password`,
     },
+  },
+  suivi: {
+    root: ROOTS.SUIVI,
+    details: (id) => `${ROOTS.SUIVI}/${id}/details`,
   },
   // DASHBOARD
   dashboard: {

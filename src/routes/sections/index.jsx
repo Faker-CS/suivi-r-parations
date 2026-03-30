@@ -2,9 +2,8 @@ import { Navigate, useRoutes } from 'react-router-dom';
 
 import { CONFIG } from 'src/config-global';
 
-import { authRoutes } from './auth';
 import { mainRoutes } from './main';
-import { dashboardRoutes } from './dashboard';
+import { suiviRoutes } from './suivi';
 
 // ----------------------------------------------------------------------
 
@@ -15,11 +14,8 @@ export function Router() {
       element: <Navigate to={CONFIG.auth.redirectPath} replace />,
     },
 
-    // Auth
-    ...authRoutes,
-
     // Dashboard
-    ...dashboardRoutes,
+    ...suiviRoutes,
 
     // Main
     ...mainRoutes,

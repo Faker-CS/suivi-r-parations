@@ -10,7 +10,6 @@ import { Logo } from 'src/components/logo';
 import { Main, CompactContent } from './main';
 import { LayoutSection } from '../core/layout-section';
 import { HeaderSection } from '../core/header-section';
-import { SettingsButton } from '../components/settings-button';
 
 // ----------------------------------------------------------------------
 
@@ -46,7 +45,7 @@ export function SimpleLayout({ sx, children, header, content }) {
                   Need help?
                 </Link>
                 {/* -- Settings button -- */}
-                <SettingsButton />
+                {/* <SettingsButton /> */}
               </Box>
             ),
           }}
