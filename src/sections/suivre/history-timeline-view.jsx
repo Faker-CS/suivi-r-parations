@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router';
 
 import { Card, CardHeader, Typography } from '@mui/material';
 import {
@@ -13,19 +14,16 @@ import {
 
 import { fDateTime } from 'src/utils/format-time';
 
-const list = [
-  {
-    id: 1,
-    title: 'Devis à distance accepté',
-    time: '2025-01-15T12:22:52+01:00',
-  },
-  {
-    id: 2,
-    title: 'Réparation finis',
-    time: '2025-01-13T10:22:52+01:00',
-  },
-];
+import { useGetSuivi } from 'src/actions';
+
 export default function HistoryTimelineView() {
+  const { id } = useParams();
+  const { suivi, suiviLoading, suiviError } = useGetSuivi(id);
+
+  const historiqueList = (suivi?.historiques || []).sort(
+    (a, b) => new Date(b.created_at) - new Date(a.created_at)
+  );
+
   return (
     <Card>
       <CardHeader title="Historique" />
@@ -39,8 +37,8 @@ export default function HistoryTimelineView() {
           },
         }}
       >
-        {list.map((item, index) => (
-          <Item key={item.id} item={item} lastItem={index === list.length - 1} />
+        {historiqueList.map((item, index) => (
+          <Item key={item.id} item={item} lastItem={index === historiqueList.length - 1} />
         ))}
       </Timeline>
     </Card>
@@ -56,10 +54,10 @@ function Item({ item, lastItem, ...other }) {
       </TimelineSeparator>
 
       <TimelineContent>
-        <Typography variant="subtitle2">{item.title}</Typography>
+        <Typography variant="subtitle2">{item.status?.nom}</Typography>
 
         <Typography variant="caption" sx={{ color: 'text.disabled' }}>
-          {fDateTime(item.time)}
+          {fDateTime(item.created_at)}
         </Typography>
       </TimelineContent>
     </TimelineItem>

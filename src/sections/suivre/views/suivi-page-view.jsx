@@ -1,6 +1,6 @@
 import { z as zod } from 'zod';
-import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { LoadingButton } from '@mui/lab';
@@ -9,8 +9,8 @@ import { Box, Card, Alert, Snackbar, Typography, CardActions, CardContent } from
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
+import { useGetSuivi } from 'src/actions';
 import { CONFIG } from 'src/config-global';
-import { postSuiviHash } from 'src/actions';
 import { CompactContent } from 'src/layouts/simple';
 
 import { Form, Field } from 'src/components/hook-form';
@@ -20,6 +20,7 @@ export const SuivreSchema = zod.object({
 });
 export default function SuiviPageView() {
   const route = useRouter();
+  const [searchSerie, setSearchSerie] = useState(null);
   const [toast, setToast] = useState({
     open: false,
     message: '',
@@ -33,6 +34,9 @@ export default function SuiviPageView() {
     defaultValues,
   });
 
+  // Call the hook with the current search serie
+  const { suivi, suiviLoading, suiviError } = useGetSuivi(searchSerie);
+
   const showToast = (message, severity = 'error') => {
     setToast({ open: true, message, severity });
   };
@@ -42,38 +46,42 @@ export default function SuiviPageView() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-      const res = await postSuiviHash(data.serie);
-
+  // Effect to handle the response after data is fetched
+  useEffect(() => {
+    if (searchSerie && !suiviLoading) {
       const notFound =
-        !res ||
-        res?.found === false ||
-        res?.exists === false ||
-        res?.status === 404 ||
-        (Array.isArray(res?.data) && res.data.length === 0);
+        !suivi ||
+        suivi?.found === false ||
+        suivi?.exists === false ||
+        suivi?.status === 404 ||
+        (Array.isArray(suivi) && suivi.length === 0);
 
-      if (notFound) {
+      if (suiviError) {
+        const rawMessage =
+          (typeof suiviError === 'string' && suiviError) ||
+          suiviError?.message ||
+          suiviError?.error ||
+          suiviError?.detail ||
+          '';
+
+        if (/404|not\s*found|introuvable|aucune/i.test(rawMessage)) {
+          showToast('Aucune reparation trouvee avec cette reference.');
+        } else {
+          showToast('Une erreur est survenue. Veuillez reessayer.');
+        }
+        setSearchSerie(null);
+      } else if (notFound) {
         showToast('Aucune reparation trouvee avec cette reference.');
-        return;
+        setSearchSerie(null);
+      } else {
+        // Success - navigate to details page
+        route.replace(paths.suivi.details(searchSerie));
       }
-
-      route.replace(paths.suivi.details(data.serie));
-    } catch (error) {
-      const rawMessage =
-        (typeof error === 'string' && error) ||
-        error?.message ||
-        error?.error ||
-        error?.detail ||
-        '';
-
-      if (/404|not\s*found|introuvable|aucune/i.test(rawMessage)) {
-        showToast('Aucune reparation trouvee avec cette reference.');
-        return;
-      }
-
-      showToast('Une erreur est survenue. Veuillez reessayer.');
     }
+  }, [searchSerie, suivi, suiviLoading, suiviError, route]);
+
+  const onSubmit = handleSubmit((data) => {
+    setSearchSerie(data.serie);
   });
   return (
     <CompactContent>
@@ -100,7 +108,7 @@ export default function SuiviPageView() {
             <LoadingButton
               type="submit"
               variant="contained"
-              loading={isSubmitting}
+              loading={isSubmitting || suiviLoading}
               fullWidth
               color="primary"
             >

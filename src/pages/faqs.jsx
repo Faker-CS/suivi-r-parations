@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
 import { CONFIG } from 'src/config-global';
+import { SimpleLayout } from 'src/layouts/simple';
 
 import SuiviHelpView from 'src/sections/suivre/views/suivi-help-view';
 
@@ -12,7 +13,10 @@ export default function Page() {
       <Helmet>
         <title>{metadata.title}</title>
       </Helmet>
-      <SuiviHelpView />
+
+      <SimpleLayout content={{ compact: true }}>
+        <SuiviHelpView />
+      </SimpleLayout>
     </>
   );
 }
