@@ -7,7 +7,7 @@ import { PostCommentItem } from './post-comment-item';
 export default function CommentsSectionView({ comments = [] }) {
   return (
     <Card>
-      <CardHeader title="Les Commentaires" />
+      <CardHeader title="Commentaires" />
       <CardContent>
         {comments.map((comment) => (
           <Box key={comment.id}>

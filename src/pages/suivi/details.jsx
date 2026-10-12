@@ -4,7 +4,7 @@ import { CONFIG } from 'src/config-global';
 
 import SuiviDetailsView from 'src/sections/suivre/views/suivi-details-view';
 
-const metadata = { title: `Details - ${CONFIG.appName}` };
+const metadata = { title: `Détails - ${CONFIG.appName}` };
 
 export default function Page() {
   return (

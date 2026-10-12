@@ -5,7 +5,7 @@ import { SimpleLayout } from 'src/layouts/simple';
 
 import SuiviHelpView from 'src/sections/suivre/views/suivi-help-view';
 
-const metadata = { title: `Need help - ${CONFIG.appName}` };
+const metadata = { title: `Besoin d'aide - ${CONFIG.appName}` };
 
 export default function Page() {
   return (

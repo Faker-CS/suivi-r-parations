@@ -16,7 +16,7 @@ import { CompactContent } from 'src/layouts/simple';
 import { Form, Field } from 'src/components/hook-form';
 
 export const SuivreSchema = zod.object({
-  serie: zod.string().min(1, { message: 'Numéro de série est requis!' }),
+  serie: zod.string().min(1, { message: 'Le numéro de suivi est requis !' }),
 });
 export default function SuiviPageView() {
   const route = useRouter();
@@ -65,13 +65,13 @@ export default function SuiviPageView() {
           '';
 
         if (/404|not\s*found|introuvable|aucune/i.test(rawMessage)) {
-          showToast('Aucune reparation trouvee avec cette reference.');
+          showToast('Aucune réparation trouvée avec cette référence.');
         } else {
-          showToast('Une erreur est survenue. Veuillez reessayer.');
+          showToast('Une erreur est survenue. Veuillez réessayer.');
         }
         setSearchSerie(null);
       } else if (notFound) {
-        showToast('Aucune reparation trouvee avec cette reference.');
+        showToast('Aucune réparation trouvée avec cette référence.');
         setSearchSerie(null);
       } else {
         // Success - navigate to details page
@@ -89,19 +89,19 @@ export default function SuiviPageView() {
         <Card>
           <CardContent>
             <Box
-              alt="Full logo"
+              alt="Logo"
               component="img"
               src={`${CONFIG.assetsDir}/logo/oneSuivi.png`}
               width="100%"
               height="100%"
             />
             <Typography sx={{ mb: 2 }} variant="h4">
-              Plate-forme de suivie pour vos réparations smartphone et informatique.
+              Plateforme de suivi de vos réparations smartphone et informatique.
             </Typography>
             <Field.Text
               name="serie"
               label="Numéro de suivi"
-              helperText="Veuillez entrer votre numéro de suivi afin de suivre votre réparation en cours"
+              helperText="Veuillez saisir votre numéro de suivi afin de suivre votre réparation en cours."
             />
           </CardContent>
           <CardActions>

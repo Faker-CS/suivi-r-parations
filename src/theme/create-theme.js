@@ -1,3 +1,4 @@
+import { frFR } from '@mui/material/locale';
 import { experimental_extendTheme as extendTheme } from '@mui/material/styles';
 
 import { setFont } from './styles/utils';
@@ -31,7 +32,12 @@ export function createTheme(settings) {
   /**
    * 2.Create theme + add locale + update component with settings.
    */
-  const theme = extendTheme(updateTheme, updateComponentsWithSettings(settings), overridesTheme);
+  const theme = extendTheme(
+    updateTheme,
+    frFR,
+    updateComponentsWithSettings(settings),
+    overridesTheme
+  );
 
   return theme;
 }

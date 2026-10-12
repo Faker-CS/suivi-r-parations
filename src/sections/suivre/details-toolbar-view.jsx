@@ -60,7 +60,7 @@ export default function DetailsToolbarView() {
           variant="contained"
           endIcon={<Iconify icon="mingcute:arrow-right-line" />}
         >
-          Aprés
+          Après
         </Button>
         <Button color="info" variant="contained" startIcon={<Iconify icon="mdi:file" />}>
           Devis

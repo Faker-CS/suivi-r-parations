@@ -21,7 +21,7 @@ export default function SuiviDetailsView() {
 
     return suivi.information_technique.map((tech, index) => ({
       id: `tech-${index}`,
-      name: 'Information Technique',
+      name: 'Information technique',
       message: tech.text,
       postedAt: tech.date,
       avatarUrl: 'https://api-dev-minimal-v610.pages.dev/assets/images/avatar/avatar-4.webp',

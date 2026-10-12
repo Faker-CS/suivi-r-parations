@@ -12,10 +12,10 @@ import { CompactContent } from 'src/layouts/simple';
 import { Form, Field } from 'src/components/hook-form';
 
 const HelpSchema = zod.object({
-  name: zod.string().min(1, { message: 'Nom requis!' }),
-  email: zod.string().email({ message: 'Email invalide!' }),
-  reference: zod.string().min(1, { message: 'Reference requise!' }),
-  message: zod.string().min(10, { message: 'Message trop court (min 10 caracteres)!' }),
+  name: zod.string().min(1, { message: 'Nom requis !' }),
+  email: zod.string().email({ message: 'Adresse e-mail invalide !' }),
+  reference: zod.string().min(1, { message: 'Référence requise !' }),
+  message: zod.string().min(10, { message: 'Message trop court (10 caractères minimum) !' }),
 });
 
 export default function SuiviHelpView() {
@@ -45,14 +45,14 @@ export default function SuiviHelpView() {
       reset(defaultValues);
       setToast({
         open: true,
-        message: 'Votre demande a ete envoyee. Nous vous repondrons rapidement.',
+        message: 'Votre demande a été envoyée. Nous vous répondrons rapidement.',
         severity: 'success',
       });
     } catch (error) {
       console.error(error);
       setToast({
         open: true,
-        message: 'Une erreur est survenue. Veuillez reessayer.',
+        message: 'Une erreur est survenue. Veuillez réessayer.',
         severity: 'error',
       });
     }
@@ -64,7 +64,7 @@ export default function SuiviHelpView() {
         <Card>
           <CardContent>
             <Box
-              alt="Full logo"
+              alt="Logo"
               component="img"
               src={`${CONFIG.assetsDir}/logo/oneSuivi.png`}
               width="100%"
@@ -72,18 +72,18 @@ export default function SuiviHelpView() {
             />
 
             <Typography sx={{ mb: 1.5 }} variant="h4">
-              Besoin d&apos;aide pour votre reparation ?
+              Besoin d&apos;aide pour votre réparation ?
             </Typography>
 
             <Typography sx={{ mb: 3 }} variant="body2" color="text.secondary">
-              Partagez votre reference de suivi et votre message, notre equipe vous assistera au
+              Partagez votre référence de suivi et votre message, notre équipe vous assistera au
               plus vite.
             </Typography>
 
             <Box display="grid" gap={2}>
               <Field.Text name="name" label="Nom complet" />
-              <Field.Text name="email" label="Adresse email" />
-              <Field.Text name="reference" label="Numero de suivi" helperText="Exemple: FFFFFFF" />
+              <Field.Text name="email" label="Adresse e-mail" />
+              <Field.Text name="reference" label="Numéro de suivi" helperText="Exemple : FFFFFFF" />
               <Field.Text name="message" label="Votre message" multiline minRows={4} />
             </Box>
           </CardContent>

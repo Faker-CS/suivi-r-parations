@@ -105,7 +105,7 @@ export const Logo = forwardRef(
     // );
     const singleLogo = (
       <Box
-        alt="Single logo"
+        alt="Logo"
         component="img"
         src={`${CONFIG.assetsDir}/logo/oneSuivi.png`}
         sx={{ width: '100%', height: 'auto', objectFit: 'contain' }}

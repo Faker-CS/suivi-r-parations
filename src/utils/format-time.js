@@ -1,3 +1,4 @@
+import 'dayjs/locale/fr';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -6,20 +7,21 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
+dayjs.locale('fr');
 
 /**
  * Docs: https://day.js.org/docs/en/display/format
  */
 export const formatStr = {
-  dateTime: 'DD MMM YYYY h:mm a', // 17 Apr 2022 12:00 am
-  date: 'DD MMM YYYY', // 17 Apr 2022
-  time: 'h:mm a', // 12:00 am
+  dateTime: 'DD MMM YYYY HH:mm', // 17 avr. 2022 14:00
+  date: 'DD MMM YYYY', // 17 avr. 2022
+  time: 'HH:mm', // 14:00
   split: {
-    dateTime: 'DD/MM/YYYY h:mm a', // 17/04/2022 12:00 am
+    dateTime: 'DD/MM/YYYY HH:mm', // 17/04/2022 14:00
     date: 'DD/MM/YYYY', // 17/04/2022
   },
   paramCase: {
-    dateTime: 'DD-MM-YYYY h:mm a', // 17-04-2022 12:00 am
+    dateTime: 'DD-MM-YYYY HH:mm', // 17-04-2022 14:00
     date: 'DD-MM-YYYY', // 17-04-2022
   },
 };
@@ -30,7 +32,7 @@ export function today(format) {
 
 // ----------------------------------------------------------------------
 
-/** output: 17 Apr 2022 12:00 am
+/** output: 17 avr. 2022 14:00
  */
 export function fDateTime(date, format) {
   if (!date) {
@@ -39,12 +41,12 @@ export function fDateTime(date, format) {
 
   const isValid = dayjs(date).isValid();
 
-  return isValid ? dayjs(date).format(format ?? formatStr.dateTime) : 'Invalid time value';
+  return isValid ? dayjs(date).format(format ?? formatStr.dateTime) : 'Date invalide';
 }
 
 // ----------------------------------------------------------------------
 
-/** output: 17 Apr 2022
+/** output: 17 avr. 2022
  */
 export function fDate(date, format) {
   if (!date) {
@@ -53,12 +55,12 @@ export function fDate(date, format) {
 
   const isValid = dayjs(date).isValid();
 
-  return isValid ? dayjs(date).format(format ?? formatStr.date) : 'Invalid time value';
+  return isValid ? dayjs(date).format(format ?? formatStr.date) : 'Date invalide';
 }
 
 // ----------------------------------------------------------------------
 
-/** output: 12:00 am
+/** output: 14:00
  */
 export function fTime(date, format) {
   if (!date) {
@@ -67,7 +69,7 @@ export function fTime(date, format) {
 
   const isValid = dayjs(date).isValid();
 
-  return isValid ? dayjs(date).format(format ?? formatStr.time) : 'Invalid time value';
+  return isValid ? dayjs(date).format(format ?? formatStr.time) : 'Date invalide';
 }
 
 // ----------------------------------------------------------------------
@@ -81,12 +83,12 @@ export function fTimestamp(date) {
 
   const isValid = dayjs(date).isValid();
 
-  return isValid ? dayjs(date).valueOf() : 'Invalid time value';
+  return isValid ? dayjs(date).valueOf() : 'Date invalide';
 }
 
 // ----------------------------------------------------------------------
 
-/** output: a few seconds, 2 years
+/** output: quelques secondes, 2 ans
  */
 export function fToNow(date) {
   if (!date) {
@@ -95,7 +97,7 @@ export function fToNow(date) {
 
   const isValid = dayjs(date).isValid();
 
-  return isValid ? dayjs(date).toNow(true) : 'Invalid time value';
+  return isValid ? dayjs(date).toNow(true) : 'Date invalide';
 }
 
 // ----------------------------------------------------------------------
@@ -138,7 +140,7 @@ export function fIsSame(startDate, endDate, units) {
   const isValid = dayjs(startDate).isValid() && dayjs(endDate).isValid();
 
   if (!isValid) {
-    return 'Invalid time value';
+    return 'Date invalide';
   }
 
   return dayjs(startDate).isSame(endDate, units ?? 'year');
@@ -147,10 +149,10 @@ export function fIsSame(startDate, endDate, units) {
 // ----------------------------------------------------------------------
 
 /** output:
- * Same day: 26 Apr 2024
- * Same month: 25 - 26 Apr 2024
- * Same month: 25 - 26 Apr 2024
- * Same year: 25 Apr - 26 May 2024
+ * Same day: 26 avr. 2024
+ * Same month: 25 - 26 avr. 2024
+ * Same month: 25 - 26 avr. 2024
+ * Same year: 25 avr. - 26 mai 2024
  */
 export function fDateRangeShortLabel(startDate, endDate, initial) {
   const isValid = dayjs(startDate).isValid() && dayjs(endDate).isValid();
@@ -158,7 +160,7 @@ export function fDateRangeShortLabel(startDate, endDate, initial) {
   const isAfter = fIsAfter(startDate, endDate);
 
   if (!isValid || isAfter) {
-    return 'Invalid time value';
+    return 'Date invalide';
   }
 
   let label = `${fDate(startDate)} - ${fDate(endDate)}`;

@@ -8,7 +8,7 @@ const axiosInstance = axios.create({ baseURL: CONFIG.apiUrl });
 
 axiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => Promise.reject((error.response && error.response.data) || 'Something went wrong!')
+  (error) => Promise.reject((error.response && error.response.data) || 'Une erreur est survenue !')
 );
 
 export default axiosInstance;
